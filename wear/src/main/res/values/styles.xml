@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="txt_button">
+        <item name="android:textSize">@dimen/_25px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/_20px</item>
+    </style>
+    <style name="txt_opt">
+        <item name="android:textSize">@dimen/_25px</item>
+        <item name="android:textColor">@color/btn_main_color</item>
+        <item name="android:layout_marginTop">@dimen/_20px</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="line_view">
+        <item name="android:layout_marginTop">@dimen/_15px</item>
+        <item name="android:background">@color/light_grey</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>

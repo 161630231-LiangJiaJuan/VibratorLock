@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_70px">
+
+            <Button
+                android:id="@+id/btn_pwd"
+                android:layout_width="@dimen/_150px"
+                android:layout_height="@dimen/_70px"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="设置密码"
+                style="@style/txt_button"/>
+            <Button
+                android:id="@+id/btn_vib"
+                android:layout_width="@dimen/_150px"
+                android:layout_height="@dimen/_70px"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="设置震动"
+                style="@style/txt_button"/>
+            <Button
+                android:id="@+id/btn_lock"
+                android:layout_width="@dimen/_150px"
+                android:layout_height="@dimen/_70px"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="启用锁屏"
+                style="@style/txt_button"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
