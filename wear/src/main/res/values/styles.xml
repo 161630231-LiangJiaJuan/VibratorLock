@@ -12,8 +12,16 @@
         <item name="android:gravity">center</item>
     </style>
     <style name="line_view">
-        <item name="android:layout_marginTop">@dimen/_15px</item>
+        <item name="android:layout_marginTop">@dimen/_8px</item>
         <item name="android:background">@color/light_grey</item>
         <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="btn_num">
+        <item name="android:layout_height">@dimen/_50px</item>
+        <item name="android:layout_width">@dimen/_50px</item>
+        <item name="android:background">@drawable/btn_rounded</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">@dimen/_10px</item>
     </style>
 </resources>

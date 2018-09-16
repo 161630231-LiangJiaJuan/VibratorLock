@@ -22,34 +22,40 @@
                 android:layout_height="@dimen/_3px"
                 style="@style/line_view"/>
             <com.example.hasee.vibratorlock.vibratorlock.view.ClearEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_300px"
+                android:layout_height="@dimen/_70px"
                 android:hint="旧的密码"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20px"
-                style="@style/Widget.WearDiag.TextView"/>
+                style="@style/Widget.WearDiag.TextView"
+                android:id="@+id/et_oldPwd"/>
             <View
                 android:layout_width="@dimen/_300px"
                 android:layout_height="@dimen/_3px"
                 style="@style/line_view"/>
             <com.example.hasee.vibratorlock.vibratorlock.view.ClearEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_300px"
+                android:layout_height="@dimen/_70px"
                 android:hint="新的密码"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20px"
-                style="@style/Widget.WearDiag.TextView"/>
+                style="@style/Widget.WearDiag.TextView"
+                android:id="@+id/et_newPwd"/>
             <View
                 android:layout_width="@dimen/_300px"
                 android:layout_height="@dimen/_3px"
                 style="@style/line_view"/>
             <com.example.hasee.vibratorlock.vibratorlock.view.ClearEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_300px"
+                android:layout_height="@dimen/_70px"
                 android:hint="重新输入密码"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20px"
-                style="@style/Widget.WearDiag.TextView"/>
+                style="@style/Widget.WearDiag.TextView"
+                android:id="@+id/et_rePwd"/>
             <View
                 android:layout_width="@dimen/_300px"
                 android:layout_height="@dimen/_3px"
@@ -61,7 +67,11 @@
                 android:layout_marginTop="@dimen/_20px"
                 android:background="@drawable/btn_rounded"
                 android:text="确定"
-                style="@style/txt_button"/>
+                style="@style/txt_button"
+                android:id="@+id/btn_confirm"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_300px"/>
         </LinearLayout>
     </ScrollView>
 
