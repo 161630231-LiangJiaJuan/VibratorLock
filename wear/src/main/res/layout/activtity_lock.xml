@@ -16,7 +16,11 @@
                 android:layout_width="@dimen/_200px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_5px"/>
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_5px"
+                android:id="@+id/tv_pwd"
+                android:inputType="textPassword"
+                android:textColor="@color/btn_main_color"/>
             <View
                 android:layout_width="@dimen/_200px"
                 android:layout_height="@dimen/_3px"
