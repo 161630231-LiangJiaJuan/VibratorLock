@@ -24,4 +24,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginLeft">@dimen/_10px</item>
     </style>
+    <style name="txt_vibArray">
+        <item name="android:textColor">@color/btn_main_color</item>
+    </style>
 </resources>

@@ -36,6 +36,24 @@
         <activity android:name=".vibratorlock.activity.LockActivity" />
         <activity android:name=".vibratorlock.activity.PwdActivity" />
         <activity android:name=".vibratorlock.activity.VibActivity" />
+        <activity android:name=".vibratorlock.activity.UseActivity" />
+        <activity android:name=".vibratorlock.activity.TestActivity" />
+
+        <service android:name=".vibratorlock.service.LockService"
+            android:process="instep.service"
+            android:permission=""
+            tools:ignore="ExportedService">
+            <intent-filter android:priority="1000" >
+            <!-- 系统启动完成后会调用-->
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

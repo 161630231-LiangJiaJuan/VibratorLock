@@ -1,6 +1,6 @@
 package com.example.hasee.vibratorlock.vibratorlock.activity;
 /*
- *Created by haseeon 2018/9/14.
+ *Created by haseeon 2018/9/18.
  */
 
 
@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,21 +21,19 @@ import com.example.hasee.vibratorlock.vibratorlock.SPAppData;
 import com.example.hasee.vibratorlock.vibratorlock.service.LockService;
 import com.example.hasee.vibratorlock.vibratorlock.util.ToastManager;
 
-public class LockActivity extends Activity {
+public class TestActivity extends Activity {
     private Button btn_0num,btn_1num,btn_2num,btn_3num,btn_4num,btn_5num,btn_6num,btn_7num,btn_8num,btn_9num,btn_del,btn_jing;
+    private Button btn_use,btn_start;
     private TextView tv_pwd;
     private String cur_pwd,in_pwd;
-//    private long [][]vibArray = {{500,1000,500,1000},{500,1000,500,500},{500,500,500,1000},{500,500,500,500}};
+    //    private long [][]vibArray = {{500,1000,500,1000},{500,1000,500,500},{500,500,500,1000},{500,500,500,500}};
     private long [][]vibArray= new long[5][5];
     private int pwd_len=0;
-    private BtnListener btnListener;
     private Context context=this;
-
     @Override
-    protected void onCreate(Bundle saveInstanceState) {
-
-        super.onCreate(saveInstanceState);
-        setContentView(R.layout.activtity_lock);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
         initView();
     }
 
@@ -44,8 +43,6 @@ public class LockActivity extends Activity {
         super.onStart();
         getVibArr();
         getCurPwd();
-        Intent intent=new Intent(LockActivity.this, LockService.class);
-        startService(intent);
     }
 
     private StringBuffer GetResult(String str, int count) {
@@ -64,7 +61,6 @@ public class LockActivity extends Activity {
         }
         return result;
     }
-
     private void initView() {
         btn_0num=findViewById(R.id.btn_0num);
         btn_1num=findViewById(R.id.btn_1num);
@@ -78,6 +74,8 @@ public class LockActivity extends Activity {
         btn_9num=findViewById(R.id.btn_9num);
         btn_del=findViewById(R.id.btn_del);
         btn_jing=findViewById(R.id.btn_jing);
+        btn_use=findViewById(R.id.btn_use);
+        btn_start=findViewById(R.id.btn_start);
 
         btn_0num.setOnClickListener(new BtnListener());
         btn_1num.setOnClickListener(new BtnListener());
@@ -91,7 +89,8 @@ public class LockActivity extends Activity {
         btn_9num.setOnClickListener(new BtnListener());
         btn_del.setOnClickListener(new BtnListener());
         btn_jing.setOnClickListener(new BtnListener());
-
+        btn_use.setOnClickListener(new BtnListener());
+        btn_start.setOnClickListener(new BtnListener());
         tv_pwd=findViewById(R.id.tv_pwd);
     }
 
@@ -114,8 +113,21 @@ public class LockActivity extends Activity {
                 case R.id.btn_9num:tv_pwd.setText(String.format("%s9", String.valueOf(tv_pwd.getText())));break;
                 case R.id.btn_del:
                     if (str.length()==0) return;
-                    tv_pwd.setText(str.substring(0,str.length()-1));break;
+                    tv_pwd.setText(str.substring(0,str.length()-1));return;
                 case R.id.btn_jing:tv_pwd.setText(String.format("%s1", String.valueOf(tv_pwd.getText())));break;
+
+                case R.id.btn_use:
+                    Intent intent=new Intent(context,UseActivity.class);
+                    startActivity(intent);    return;
+                case R.id.btn_start:
+                    if (str.length()!=0){
+                        ToastManager.showShortToast(context,"请删除所有字符后开始");
+                        return;
+                    }
+                    else {
+                        in_pwd+=GetResult(cur_pwd,1);
+                        return;
+                    }
                 default:break;
             }
             tv_pwd.requestFocus();
@@ -131,10 +143,10 @@ public class LockActivity extends Activity {
             }
         }
     }
-
     private void unlock() {
         if (tv_pwd.getText().toString().equals(in_pwd)){
-            finish();
+            ToastManager.showShortToast(context,"输入正确");
+            tv_pwd.setText("");
         }
         else {
             tv_pwd.setText("");
@@ -142,7 +154,6 @@ public class LockActivity extends Activity {
             recreate();
         }
     }
-
     private void getVibArr(){
         SharedPreferences sp;
         sp=getSharedPreferences(SPAppData.VIBARR,MODE_PRIVATE);
@@ -166,7 +177,6 @@ public class LockActivity extends Activity {
         }
         else {
             in_pwd="";
-            in_pwd+=GetResult(cur_pwd,1);
         }
     }
 }
