@@ -11,31 +11,43 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hasee.vibratorlock.R;
 import com.example.hasee.vibratorlock.vibratorlock.SPAppData;
 import com.example.hasee.vibratorlock.vibratorlock.service.LockService;
 import com.example.hasee.vibratorlock.vibratorlock.util.ToastManager;
+import com.example.hasee.vibratorlock.vibratorlock.util.VibArrUtil;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class TestActivity extends Activity {
     private Button btn_0num,btn_1num,btn_2num,btn_3num,btn_4num,btn_5num,btn_6num,btn_7num,btn_8num,btn_9num,btn_del,btn_jing;
     private Button btn_use,btn_start;
+    private ImageView iv_1st,iv_2nd,iv_3rd,iv_4th;
     private TextView tv_pwd;
     private String cur_pwd,in_pwd;
     //    private long [][]vibArray = {{500,1000,500,1000},{500,1000,500,500},{500,500,500,1000},{500,500,500,500}};
     private long [][]vibArray= new long[5][5];
     private int pwd_len=0;
+    private VibArrUtil vibArrUtil = new VibArrUtil();
     private Context context=this;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         initView();
+        setVibView();
     }
+
+
 
     @Override
     protected void onStart() {
@@ -45,6 +57,25 @@ public class TestActivity extends Activity {
         getCurPwd();
     }
 
+    private void setVibView() {
+//        vibArrUtil=getIntent().getParcelableExtra("vib_select");
+        SharedPreferences sp=getSharedPreferences(SPAppData.VIB_IMG,MODE_PRIVATE);
+        String string=sp.getString("vibArrUtil","");
+        byte[] base64VibArrUtil= Base64.decode(string,Base64.DEFAULT);
+        ByteArrayInputStream bais = new ByteArrayInputStream(base64VibArrUtil);
+        try {
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            vibArrUtil =(VibArrUtil)ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (vibArrUtil!=null){
+            iv_1st.setImageResource(vibArrUtil.getIv_1st());
+            iv_2nd.setImageResource(vibArrUtil.getIv_2nd());
+            iv_3rd.setImageResource(vibArrUtil.getIv_3rd());
+            iv_4th.setImageResource(vibArrUtil.getIv_4th());
+        }
+    }
     private StringBuffer GetResult(String str, int count) {
         java.util.Random random=new java.util.Random();
         StringBuffer result = new StringBuffer();
@@ -62,6 +93,11 @@ public class TestActivity extends Activity {
         return result;
     }
     private void initView() {
+        iv_1st=findViewById(R.id.iv_1st);
+        iv_2nd=findViewById(R.id.iv_2nd);
+        iv_3rd=findViewById(R.id.iv_3rd);
+        iv_4th=findViewById(R.id.iv_4th);
+
         btn_0num=findViewById(R.id.btn_0num);
         btn_1num=findViewById(R.id.btn_1num);
         btn_2num=findViewById(R.id.btn_2num);

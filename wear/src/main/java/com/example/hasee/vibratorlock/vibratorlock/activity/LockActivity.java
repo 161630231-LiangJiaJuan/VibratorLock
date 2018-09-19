@@ -113,26 +113,31 @@ public class LockActivity extends Activity {
                 case R.id.btn_8num:tv_pwd.setText(String.format("%s8", String.valueOf(tv_pwd.getText())));break;
                 case R.id.btn_9num:tv_pwd.setText(String.format("%s9", String.valueOf(tv_pwd.getText())));break;
                 case R.id.btn_del:
-                    if (str.length()==0) return;
-                    tv_pwd.setText(str.substring(0,str.length()-1));break;
-                case R.id.btn_jing:tv_pwd.setText(String.format("%s1", String.valueOf(tv_pwd.getText())));break;
+                    if (str.length()==0) recreate();
+                    tv_pwd.setText(str.substring(0,str.length()-1));return;
+                case R.id.btn_jing:tv_pwd.setText(String.format("%s#", String.valueOf(tv_pwd.getText())));return;
                 default:break;
             }
             tv_pwd.requestFocus();
             if (tv_pwd.length()>cur_pwd.length()){
-                ToastManager.showShortToast(context,"密码错误");
-                return;
+                normal_unlock();  //井号开头，禁用随机密码，普通解锁
             }
             else if (tv_pwd.length()==cur_pwd.length()){
                 unlock();
             }
             else {
-                in_pwd+=GetResult(cur_pwd,1);
+                if (in_pwd.length()>=cur_pwd.length()) {
+                    return;
+                }
+                else {
+                    in_pwd+=GetResult(cur_pwd,1);
+                }
             }
         }
     }
 
     private void unlock() {
+        if (tv_pwd.getText().toString().substring(0,1).equals("#")) return;
         if (tv_pwd.getText().toString().equals(in_pwd)){
             finish();
         }
@@ -140,6 +145,24 @@ public class LockActivity extends Activity {
             tv_pwd.setText("");
             ToastManager.showShortToast(context,"密码错误");
             recreate();
+        }
+    }
+
+    private void normal_unlock(){
+        if ( ! tv_pwd.getText().toString().substring(0,1).equals("#")){ //开头非井号，超出长度
+            ToastManager.showShortToast(context,"密码错误");
+            tv_pwd.setText("");
+            recreate();
+        }
+        else {
+            if ( ! tv_pwd.getText().toString().substring(1,tv_pwd.length()).equals(cur_pwd)){
+                ToastManager.showShortToast(context,"密码错误");
+                tv_pwd.setText("");
+                recreate();
+            }
+            else {
+                finish();
+            }
         }
     }
 

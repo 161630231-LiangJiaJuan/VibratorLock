@@ -22,11 +22,14 @@ public class PwdActivity  extends Activity{
     private ClearEditText et_oldPwd,et_newPwd,et_rePwd;
     private Button btn_confirm;
     private Context context=this;
+    private boolean isFirstRun;
     @Override
     protected void onCreate(Bundle saveInstanceState) {
 
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activtity_pwd);
+        SharedPreferences sp=getSharedPreferences(SPAppData.FIRST_RUN,MODE_PRIVATE);
+        isFirstRun=sp.getBoolean(SPAppData.FIRST_RUN,true);
         initView();
     }
 
@@ -42,11 +45,28 @@ public class PwdActivity  extends Activity{
                 confirmPwd();
             }
         });
+        if (isFirstRun){
+            et_oldPwd.setVisibility(View.GONE);
+        }
     }
 
     private void confirmPwd() {
         SharedPreferences sp=getSharedPreferences(SPAppData.PASSWORD,MODE_PRIVATE);
         String cur_pwd=sp.getString(SPAppData.PASSWORD,"1234");
+
+        if (isFirstRun){
+            if(! et_newPwd.getText().toString().equals(et_rePwd.getText().toString())){
+                ToastManager.showShortToast(context,"两次密码输入不一致");
+                return;
+            }
+            else{
+                SPAppData.SavePwd(context,et_newPwd.getText().toString());
+                ToastManager.showShortToast(context,"设置密码成功,现密码"+sp.getString(SPAppData.PASSWORD,null));
+                SPAppData.SaveRunStatus(context,false);
+                return;
+            }
+        }
+
         if (!et_oldPwd.getText().toString().equals(cur_pwd)){
             ToastManager.showShortToast(context,"旧的密码错误");
             return;
