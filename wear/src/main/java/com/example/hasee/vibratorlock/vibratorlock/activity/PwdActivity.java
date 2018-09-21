@@ -6,6 +6,7 @@ package com.example.hasee.vibratorlock.vibratorlock.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -61,8 +62,11 @@ public class PwdActivity  extends Activity{
             }
             else{
                 SPAppData.SavePwd(context,et_newPwd.getText().toString());
-                ToastManager.showShortToast(context,"设置密码成功,现密码"+sp.getString(SPAppData.PASSWORD,null));
+                ToastManager.showShortToast(context,"设置密码成功,请选择序列");
                 SPAppData.SaveRunStatus(context,false);
+                Intent intent=new Intent(context,VibActivity.class);
+                startActivity(intent);
+                finish();
                 return;
             }
         }

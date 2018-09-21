@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ import com.example.hasee.vibratorlock.vibratorlock.util.ToastManager;
 public class LockActivity extends Activity {
     private Button btn_0num,btn_1num,btn_2num,btn_3num,btn_4num,btn_5num,btn_6num,btn_7num,btn_8num,btn_9num,btn_del,btn_jing;
     private TextView tv_pwd;
-    private String cur_pwd,in_pwd;
+    private String cur_pwd="",in_pwd="";
 //    private long [][]vibArray = {{500,1000,500,1000},{500,1000,500,500},{500,500,500,1000},{500,500,500,500}};
     private long [][]vibArray= new long[5][5];
     private int pwd_len=0;
@@ -115,21 +114,22 @@ public class LockActivity extends Activity {
                 case R.id.btn_del:
                     if (str.length()==0) recreate();
                     tv_pwd.setText(str.substring(0,str.length()-1));return;
-                case R.id.btn_jing:tv_pwd.setText(String.format("%s#", String.valueOf(tv_pwd.getText())));return;
+                case R.id.btn_jing:tv_pwd.setText(String.format("%s#", String.valueOf(tv_pwd.getText())));break;
                 default:break;
             }
             tv_pwd.requestFocus();
-            if (tv_pwd.length()>cur_pwd.length()){
-                normal_unlock();  //井号开头，禁用随机密码，普通解锁
+            str=tv_pwd.getText().toString();
+            if (str.length()>cur_pwd.length()){
+                vib_unlock();  //井号开头，启用随机密码，震动解锁
             }
-            else if (tv_pwd.length()==cur_pwd.length()){
+            else if (str.length()==cur_pwd.length()){
                 unlock();
             }
             else {
                 if (in_pwd.length()>=cur_pwd.length()) {
                     return;
                 }
-                else {
+                else if (str.length()!=0&&str.substring(0,1).equals("#")){
                     in_pwd+=GetResult(cur_pwd,1);
                 }
             }
@@ -137,8 +137,9 @@ public class LockActivity extends Activity {
     }
 
     private void unlock() {
-        if (tv_pwd.getText().toString().substring(0,1).equals("#")) return;
-        if (tv_pwd.getText().toString().equals(in_pwd)){
+        String str=tv_pwd.getText().toString();
+        if (str.substring(0,1).equals("#")) return;
+        if (str.equals(cur_pwd)){
             finish();
         }
         else {
@@ -148,15 +149,16 @@ public class LockActivity extends Activity {
         }
     }
 
-    private void normal_unlock(){
-        if ( ! tv_pwd.getText().toString().substring(0,1).equals("#")){ //开头非井号，超出长度
+    private void vib_unlock(){
+        String str=tv_pwd.getText().toString();
+        if ( ! str.substring(0,1).equals("#")){ //开头非井号，超出长度
             ToastManager.showShortToast(context,"密码错误");
             tv_pwd.setText("");
             recreate();
         }
         else {
-            if ( ! tv_pwd.getText().toString().substring(1,tv_pwd.length()).equals(cur_pwd)){
-                ToastManager.showShortToast(context,"密码错误");
+            if ( ! str.substring(1,str.length()-1).equals(in_pwd)){
+                ToastManager.showShortToast(context,"震动密码错误");
                 tv_pwd.setText("");
                 recreate();
             }
@@ -173,7 +175,7 @@ public class LockActivity extends Activity {
         for (int i=0;i<pwd_len;i++){
             for (int j=0;j<pwd_len;j++){
                 vibArray[i][j]=sp.getLong(String.valueOf(SPAppData.VIBARRAY[i][j]),0);
-                Log.i("vib arr", String.valueOf(vibArray[i][j]));
+//                Log.i("vib arr", String.valueOf(vibArray[i][j]));
             }
         }
     }
@@ -188,8 +190,8 @@ public class LockActivity extends Activity {
             startActivity(intent);
         }
         else {
-            in_pwd="";
-            in_pwd+=GetResult(cur_pwd,1);
+//            in_pwd="";
+//            in_pwd+=GetResult(cur_pwd,1);
         }
     }
 }

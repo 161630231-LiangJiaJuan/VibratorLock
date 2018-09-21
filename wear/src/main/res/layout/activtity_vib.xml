@@ -7,7 +7,7 @@
         android:layout_width="@dimen/_200px"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_50px"
+        android:layout_marginTop="@dimen/_30px"
         android:text="请选择震动序列"
         android:gravity="center"
         android:textColor="@color/btn_main_color"/>
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_50px"
         android:layout_marginRight="@dimen/_50px"
-        android:layout_marginTop="@dimen/_20px"
+        android:layout_marginTop="@dimen/_10px"
         android:id="@+id/rcv_data">
     </android.support.v7.widget.RecyclerView>
 

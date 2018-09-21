@@ -116,7 +116,7 @@ public class VibActivity extends Activity{
             default:break;
         }
         SharedPreferences sharedPreferences=getSharedPreferences(SPAppData.VIBARR,MODE_PRIVATE);
-        ToastManager.showShortToast(context,"选择成功");
+        ToastManager.showShortToast(context,"选择成功,请查看说明");
         SPAppData.SaveVibArr(context,vibArray,sharedPreferences.getInt(SPAppData.VIBLEN,4));
         SPAppData.SaveVibImg(context,vib_select);
     }
