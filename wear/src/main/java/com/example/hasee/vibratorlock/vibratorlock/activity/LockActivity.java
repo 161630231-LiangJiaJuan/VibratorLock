@@ -19,9 +19,11 @@ import com.example.hasee.vibratorlock.vibratorlock.SPAppData;
 import com.example.hasee.vibratorlock.vibratorlock.service.LockService;
 import com.example.hasee.vibratorlock.vibratorlock.util.ToastManager;
 
+import java.util.Calendar;
+
 public class LockActivity extends Activity {
     private Button btn_0num,btn_1num,btn_2num,btn_3num,btn_4num,btn_5num,btn_6num,btn_7num,btn_8num,btn_9num,btn_del,btn_jing;
-    private TextView tv_pwd;
+    private TextView tv_pwd,tv_time;
     private String cur_pwd="",in_pwd="";
 //    private long [][]vibArray = {{500,1000,500,1000},{500,1000,500,500},{500,500,500,1000},{500,500,500,500}};
     private long [][]vibArray= new long[5][5];
@@ -45,6 +47,15 @@ public class LockActivity extends Activity {
         getCurPwd();
         Intent intent=new Intent(LockActivity.this, LockService.class);
         startService(intent);
+        showTime();
+    }
+
+    private void showTime() {
+        Calendar c=Calendar.getInstance();
+        int year=c.get(Calendar.YEAR);
+        int hour=c.get(Calendar.HOUR);
+        int minute=c.get(Calendar.MINUTE);
+        tv_time.setText(String.format("%s:%s", String.valueOf(hour), String.valueOf(minute)));
     }
 
     private StringBuffer GetResult(String str, int count) {
@@ -92,6 +103,7 @@ public class LockActivity extends Activity {
         btn_jing.setOnClickListener(new BtnListener());
 
         tv_pwd=findViewById(R.id.tv_pwd);
+        tv_time=findViewById(R.id.tv_time);
     }
 
     public class BtnListener implements View.OnClickListener{

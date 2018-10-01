@@ -10,14 +10,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/_60px">
+            android:orientation="vertical">
             <TextView
-                android:layout_width="@dimen/_200px"
+                android:layout_width="@dimen/_80px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_18px"
+                android:layout_marginLeft="@dimen/_3px"
+                android:id="@+id/tv_time"
                 android:gravity="center"
-                android:layout_marginLeft="@dimen/_5px"
+                android:textColor="@color/btn_main_color"
+                android:textSize="@dimen/_30px">
+            </TextView>
+            <TextView
+                android:layout_width="@dimen/_200px"
+                android:layout_height="@dimen/_25px"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:id="@+id/tv_pwd"
                 android:inputType="textPassword"
                 android:textColor="@color/btn_main_color"/>

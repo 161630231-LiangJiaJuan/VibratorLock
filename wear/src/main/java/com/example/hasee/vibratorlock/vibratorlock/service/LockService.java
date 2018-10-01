@@ -54,9 +54,9 @@ public class LockService extends Service {
             if(action.equals("android.intent.action.SCREEN_ON")){
                 Log.i(TAG,"srceen on");
                 screenOnFlag=true;
-                Intent i1=new Intent(context,LockActivity.class);
-                i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i1);
+//                Intent i1=new Intent(context,LockActivity.class);
+//                i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(i1);
             }
         }
     }
@@ -70,9 +70,9 @@ public class LockService extends Service {
             if(action.equals("android.intent.action.SCREEN_OFF")){
                 Log.i(TAG,"screen off");
                 screenOnFlag=false;
-//                Intent i1=new Intent(context,LockActivity.class);
-//                i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(i1);
+                Intent i1=new Intent(context,LockActivity.class);
+                i1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i1);
             }
         }
     }
