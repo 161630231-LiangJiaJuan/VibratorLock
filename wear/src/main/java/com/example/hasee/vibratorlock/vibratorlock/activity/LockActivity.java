@@ -125,7 +125,8 @@ public class LockActivity extends Activity {
                 case R.id.btn_9num:tv_pwd.setText(String.format("%s9", String.valueOf(tv_pwd.getText())));break;
                 case R.id.btn_del:
                     if (str.length()==0) recreate();
-                    tv_pwd.setText(str.substring(0,str.length()-1));return;
+                    else tv_pwd.setText(str.substring(0,str.length()-1));
+                    return;
                 case R.id.btn_jing:tv_pwd.setText(String.format("%s#", String.valueOf(tv_pwd.getText())));break;
                 default:break;
             }
